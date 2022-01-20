@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { FlightsInfoService } from 'src/app/services/flights-info.service';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -19,6 +18,8 @@ export class NonStopTicketsComponent implements OnInit {
   formData: any;
   cityOrigin: string;
   cityArrival: string;
+  startDate: string;
+  endDate: string;
   div: boolean = false;
   btnName: string = 'Open';
   faPlane = faPlane;
@@ -30,19 +31,24 @@ export class NonStopTicketsComponent implements OnInit {
 
   @Select(RequestDataState.formData) formData$: Observable<FormDataModel>;
 
-  constructor(private flightsInfoService: FlightsInfoService) {}
+  constructor(private flightsInfoService: FlightsInfoService, private store: Store) {}
 
   ngOnInit(): void {
    this.formData = this.formData$.subscribe(formData => {
       this.flightsInfoService
         .requestGetNonStopTickets(
           formData.destinationFrom.code,
-          formData.destinationTo.code
+          formData.destinationTo.code,
+          formData.endDate.toISOString().slice(0,7),
+          formData.startDate.toISOString().slice(0,7)
         )
         .subscribe((response) => {
           this.data = response;
           this.cityOrigin = formData.destinationFrom.name;
           this.cityArrival = formData.destinationTo.name;
+          this.endDate = formData.endDate.toISOString().slice(0,7);
+          this.startDate = formData.startDate.toISOString().slice(0,7);
+
         });
     });
   }
