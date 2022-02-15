@@ -10,16 +10,24 @@
   <app-nav></app-nav>
 </div>
 
-<mat-progress-bar mode="indeterminate" [style.visibility]="loading ? 'visible' : 'hidden'">
+<mat-progress-bar
+  mode="indeterminate"
+  [style.visibility]="loading ? 'visible' : 'hidden'"
+>
 </mat-progress-bar>
 
 <div class="search-content">
   <div class="sidebarWrapper">
     <app-non-stop-tickets></app-non-stop-tickets>
+  
   <button class="filter-btn" (click)="toggling($event)">Filter</button>
-  <div class="filterWrapper" [ngClass]="{'background-color': toggle}" (click)="toggling($event)">
+  <div
+    class="filterWrapper"
+    [ngClass]="{ 'background-color': toggle }"
+    (click)="toggling($event)"
+  >
     <div class="test-bg"></div>
-    <div class="filterInner" [ngClass]="{'close': !toggle}">
+    <div class="filterInner" [ngClass]="{ close: !toggle }">
       <button class="close-btn" (click)="toggling($event)">X</button>
       <app-flight-filter></app-flight-filter>
       <!-- <app-flight-sort></app-flight-sort> -->
@@ -29,6 +37,7 @@
     </div>
   </div>
 </div>
+
   <div class="ticketsWrapper">
     <router-outlet></router-outlet>
   </div>

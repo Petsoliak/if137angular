@@ -76,7 +76,7 @@
 .bottom-flight-info {
   display: flex;
   justify-content: space-around;
-  max-width: 280px;
+  max-width: 100%;
   padding: 0 20px;
 }
 
@@ -96,7 +96,7 @@
 }
 .ticket-title {
   background-color: red;
-  width: 300px;
+  width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
@@ -194,4 +194,26 @@ font-family: Arial, Helvetica, sans-serif;
     width: 400px;
     overflow: hidden;
   }
+}
+
+@media screen and (max-width: 1092px) {
+  .ticket-content__wrapper {
+    min-width: 650px;
+    cursor: pointer;
+  }
+  .line-img {
+    width: 360px;
+  }
+  
+}
+
+@media screen and (max-width: 700px) {
+  .ticket-content__wrapper {
+    min-width: 300px;
+    cursor: pointer;
+  }
+  .line-img {
+    width: 120px;
+  }
+  
 }
