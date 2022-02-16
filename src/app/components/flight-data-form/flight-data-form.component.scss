@@ -49,3 +49,14 @@
 .swap-icon:hover {
   transform: scaleX(1.2);
 }
+
+
+@media screen and (max-width: 453px) {
+  .swap-inputs-btn {
+    position: absolute;
+    left: 75%;
+    top: 21%;
+    
+  }
+  
+}
