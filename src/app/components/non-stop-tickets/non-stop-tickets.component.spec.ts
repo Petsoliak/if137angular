@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { NonStopTicketsComponent } from './non-stop-tickets.component';
 import { FlightsInfoService } from 'src/app/services/flights-info.service';
@@ -8,13 +8,16 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { FlightInfoState } from 'src/app/store/flight-info.state';
 import { appState } from 'src/app/store/app.state';
+import { GetNonStopTickets } from 'src/app/store/flight-info.action';
 
-describe('NonStopTicketsComponent', () => {
+fdescribe('NonStopTicketsComponent', () => {
   let component: NonStopTicketsComponent;
   let fixture: ComponentFixture<NonStopTicketsComponent>;
 
   let flightsInfoServiceMock: any;
   let requestDataServiceMock: any;
+
+  let store: any;
   let storeMock: any;
   let formDataSubject = new Subject();
   let nonStopTicketSubject = new Subject();
@@ -32,6 +35,7 @@ describe('NonStopTicketsComponent', () => {
         .and.returnValue(nonStopTicketSubject.asObservable())
         .withArgs(RequestDataState.currency)
         .and.returnValue(RequestDataStateSubject.asObservable()),
+        dispatch: jasmine.createSpy('dispatch'),
       selectSnapshot: jasmine.createSpy('selectSnapshot'),
     };
 
@@ -53,11 +57,39 @@ describe('NonStopTicketsComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NonStopTicketsComponent);
+    store = TestBed.inject(Store)
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterAll(() => {
+    formDataSubject.complete();
+    nonStopTicketSubject.complete();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  
+  describe('#ngOnInit', () => {
+    it('should dispatch GetNonStopTickets whith parametrs', () => {
+      const payload = {
+        destinationFrom: { code: 'KRK' },
+        destinationTo: { code: 'DTM' },
+        startDate: new Date('2022-03-22'),
+        endDate: new Date('2022-03-26'),
+        isFormValid: true
+      }
+      formDataSubject.next(payload);
+      
+    component.ngOnInit();
+   
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new GetNonStopTickets(payload as any)
+    );
+   });         
+  });  
 });
+

@@ -7,7 +7,6 @@ import { NonStopInfo } from 'src/app/models/non-stop-tickets.model';
 import { GetNonStopTickets } from 'src/app/store/flight-info.action';
 import { FlightInfoState } from 'src/app/store/flight-info.state';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { MatDialog } from '@angular/material/dialog';
 
 
 @UntilDestroy()
@@ -34,17 +33,13 @@ export class NonStopTicketsComponent implements OnInit {
         untilDestroyed(this),
         filter((formData:any) => formData.isFormValid)
       )
-      .subscribe((formData: FormDataModel) => {
+      .subscribe((formData) => {
         this.cityOrigin = formData.destinationFrom.name;
         this.cityArrival = formData.destinationTo.name;
         this.cityOriginCode = formData.destinationFrom.code;
         this.cityArrivalCode = formData.destinationTo.code;
         this.store.dispatch(new GetNonStopTickets(formData));
       });
-  }
-
-  // popUpToggle(popUp: TemplateRef<any>) {
-  //   this.dialog.open(popUp, {panelClass: 'custom-dialog'});
-  //   }
+    }
 
 }

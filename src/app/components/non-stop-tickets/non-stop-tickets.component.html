@@ -4,22 +4,18 @@
       <div class="ticket-title-wrapper">
         <div class="ticket-title">
           <h1>Non Stop Ticket</h1>
-          <!-- <button class="mat-heart-btn"><mat-icon class="mat-heart">favorite_border</mat-icon></button> -->
         </div>
 
       </div>
 
       <div class="content-info-block">
         <p class="content-info">
-          <!-- Price: -->
           <span class="content-info-style">{{ item.price }} {{ currency$ | async | uppercase }}</span>
         </p>
         <p class="content-info">
-          <!-- Airline: -->
           <img class="card-logo" src="https://images.kiwi.com/airlines/64/{{ item.airline }}.png"
             alt="{{ item.airline }}" />
         </p>
-        <!-- <p class="content-info">Flight Number: {{ item.flight_number }}</p> -->
       </div>
 
       <div class="bottom-flight-info">
@@ -59,17 +55,3 @@
       </p>
     </div>
   </div>
-
-  <!-- <ng-template #popUp>
-    <mat-dialog-content>
-      <p class="dialog-info-style">Your ticket was added</p>
-    </mat-dialog-content>
-    <mat-dialog-actions align="center">
-      <button class="mat-heart-btn" matDialogClose><mat-icon class="mat-close-icon">close</mat-icon></button>
-    </mat-dialog-actions>
-  </ng-template>  -->
-
-  <!-- <ng-template #noData>
-    <app-no-records-found></app-no-records-found>
-  </ng-template>
-</div> -->
